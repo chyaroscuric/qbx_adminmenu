@@ -49,7 +49,7 @@ function GenerateReportMenu()
     lib.registerMenu({
         id = 'qbx_adminmenu_reports_menu',
         title = locale('title.reports_menu'),
-        position = 'top-right',
+        position = 'center-right',
         onClose = function(keyPressed)
             CloseMenu(false, keyPressed, 'qbx_adminmenu_main_menu')
         end,
@@ -63,7 +63,7 @@ function GenerateReportMenu()
         lib.registerMenu({
             id = ('qbx_adminmenu_reports_menu_%s'):format(report.id),
             title = ('Report ID: %s | Sender: %s'):format(report.id, report.senderName),
-            position = 'top-right',
+            position = 'center-right',
             onClose = function(keyPressed)
                 CloseMenu(false, keyPressed, 'qbx_adminmenu_reports_menu')
             end,

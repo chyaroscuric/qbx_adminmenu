@@ -3,7 +3,7 @@ MenuIndexes = {}
 lib.registerMenu({
     id = 'qbx_adminmenu_main_menu',
     title = locale('title.main_menu'),
-    position = 'top-right',
+    position = 'center-right',
     onClose = function()
         CloseMenu(true)
     end,

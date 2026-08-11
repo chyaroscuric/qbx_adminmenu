@@ -33,7 +33,7 @@ function GenerateVehiclesSpawnMenu()
         lib.registerMenu({
             id = ('qbx_adminmenu_spawn_vehicles_menu_%s'):format(categories[i]),
             title = categories[i],
-            position = 'top-right',
+            position = 'center-right',
             onClose = function(keyPressed)
                 CloseMenu(false, keyPressed, 'qbx_adminmenu_spawn_vehicles_menu')
             end,
@@ -84,7 +84,7 @@ end
 lib.registerMenu({
     id = 'qbx_adminmenu_vehicles_menu',
     title = 'Vehicles',
-    position = 'top-right',
+    position = 'center-right',
     onClose = function(keyPressed)
         CloseMenu(false, keyPressed, 'qbx_adminmenu_main_menu')
     end,
@@ -114,7 +114,7 @@ lib.registerMenu({
             lib.showMenu('qbx_adminmenu_vehicles_menu', MenuIndexes.qbx_adminmenu_vehicles_menu)
             return
         end
-        exports.qbx_customs:OpenMenu()
+        exports.cCustoms:OpenMenu()
     elseif selected == 6 then
         if not cache.vehicle then
             exports.qbx_core:Notify('You have to be in a vehicle, to use this', 'error')
@@ -145,7 +145,7 @@ end)
 lib.registerMenu({
     id = 'qbx_adminmenu_spawn_vehicles_menu',
     title = 'Spawn Vehicle',
-    position = 'top-right',
+    position = 'center-right',
     onClose = function(keyPressed)
         CloseMenu(false, keyPressed, 'qbx_adminmenu_main_menu')
     end,

@@ -24,7 +24,7 @@ local options = {
 lib.registerMenu({
     id = 'qbx_adminmenu_server_menu',
     title = locale('title.server_menu'),
-    position = 'top-right',
+    position = 'center-right',
     onClose = function(keyPressed)
         CloseMenu(false, keyPressed, 'qbx_adminmenu_main_menu')
     end,

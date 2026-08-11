@@ -141,7 +141,7 @@ function GeneratePlayersMenu()
     lib.registerMenu({
         id = 'qbx_adminmenu_players_menu',
         title = locale('title.players_menu'),
-        position = 'top-right',
+        position = 'center-right',
         onClose = function(keyPressed)
             CloseMenu(false, keyPressed, 'qbx_adminmenu_main_menu')
         end,
@@ -158,7 +158,7 @@ function GeneratePlayersMenu()
         lib.registerMenu({
             id = ('qbx_adminmenu_player_menu_%s'):format(args[1].id),
             title = player.name,
-            position = 'top-right',
+            position = 'center-right',
             onClose = function(keyPressed)
                 CloseMenu(false, keyPressed, 'qbx_adminmenu_players_menu')
             end,
@@ -198,7 +198,7 @@ end
 lib.registerMenu({
     id = 'qbx_adminmenu_player_general_menu',
     title = locale('player_options.label1'),
-    position = 'top-right',
+    position = 'center-right',
     onClose = function(keyPressed)
         CloseMenu(false, keyPressed, ('qbx_adminmenu_player_menu_%s'):format(selectedPlayer?.id))
     end,
@@ -230,7 +230,7 @@ end)
 lib.registerMenu({
     id = 'qbx_adminmenu_player_administration_menu',
     title = locale('player_options.label2'),
-    position = 'top-right',
+    position = 'center-right',
     onClose = function(keyPressed)
         CloseMenu(false, keyPressed, ('qbx_adminmenu_player_menu_%s'):format(selectedPlayer?.id))
     end,
@@ -268,7 +268,7 @@ end)
 lib.registerMenu({
     id = 'qbx_adminmenu_player_extra_menu',
     title = locale('player_options.label2'),
-    position = 'top-right',
+    position = 'center-right',
     onClose = function(keyPressed)
         CloseMenu(false, keyPressed, ('qbx_adminmenu_player_menu_%s'):format(selectedPlayer?.id))
     end,
