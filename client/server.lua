@@ -6,7 +6,7 @@ local options = {
             {type = 'number', label = locale('server_options.input3label'), min = 0, max = 1000}
         })
         if not input then return end if not input[1] then return end
-        lib.callback('qbx_admin:callback:getradiolist', false, function(players, frequency)
+        lib.callback('cAdmin:callback:getradiolist', false, function(players, frequency)
             local optionsList = {}
             for i = 1, #players do optionsList[#optionsList + 1] = {title = players[i].name .. ' | ' .. players[i].id} end
             lib.registerContext({id = 'frequency_list', title = 'Frequency ' .. frequency, options = optionsList })
@@ -22,14 +22,14 @@ local options = {
 }
 
 lib.registerMenu({
-    id = 'qbx_adminmenu_server_menu',
+    id = 'cAdmin_server_menu',
     title = locale('title.server_menu'),
     position = 'center-right',
     onClose = function(keyPressed)
-        CloseMenu(false, keyPressed, 'qbx_adminmenu_main_menu')
+        CloseMenu(false, keyPressed, 'cAdmin_main_menu')
     end,
     onSelected = function(selected)
-        MenuIndexes.qbx_adminmenu_server_menu = selected
+        MenuIndexes.cAdmin_server_menu = selected
     end,
     options = {
         {label = locale('server_options.label1'), description = locale('server_options.desc1'), icon = 'fas fa-cloud', values = {locale('server_options.value1_1'), locale('server_options.value1_2'), locale('server_options.value1_3'), locale('server_options.value1_4'), locale('server_options.value1_5'), locale('server_options.value1_6'),
