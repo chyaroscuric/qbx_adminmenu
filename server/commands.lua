@@ -1,20 +1,18 @@
 local config = require 'config.server'.commandPerms
+local sharedConfig = require 'config'
 
 lib.addCommand('report', {
     help = 'Send Report',
-    params = {
-        {name = 'report', help = 'Your report message', type = 'string'}
-    }
-}, function(source, args, raw)
-    SendReport(source, string.sub(raw, 8))
+}, function(source)
+    TriggerClientEvent('cAdmin:client:openReportDialog', source)
 end)
 
-lib.addCommand('admin', {
+lib.addCommand(sharedConfig.commands.admin, {
     help = 'Opens Admin Menu',
     restricted = config.useMenu,
 }, function(source)
     if not exports.qbx_core:IsOptin(source) then exports.qbx_core:Notify(source, locale('error.not_optin'), 'error') return end
-    TriggerClientEvent('qbx_admin:client:openMenu', source)
+    TriggerClientEvent('cAdmin:client:openMenu', source)
 end)
 
 lib.addCommand('noclip', {
@@ -22,7 +20,7 @@ lib.addCommand('noclip', {
     restricted = config.noclip,
 }, function(source)
     if not exports.qbx_core:IsOptin(source) then exports.qbx_core:Notify(source, locale('error.not_optin'), 'error') return end
-    TriggerClientEvent('qbx_admin:client:ToggleNoClip', source)
+    TriggerClientEvent('cAdmin:client:ToggleNoClip', source)
 end)
 
 lib.addCommand('names', {
@@ -30,7 +28,7 @@ lib.addCommand('names', {
     restricted = config.names,
 }, function(source)
     if not exports.qbx_core:IsOptin(source) then exports.qbx_core:Notify(source, locale('error.not_optin'), 'error') return end
-    TriggerClientEvent('qbx_admin:client:names', source)
+    TriggerClientEvent('cAdmin:client:names', source)
 end)
 
 lib.addCommand('blips', {
@@ -38,7 +36,7 @@ lib.addCommand('blips', {
     restricted = config.blips,
 }, function(source)
     if not exports.qbx_core:IsOptin(source) then exports.qbx_core:Notify(source, locale('error.not_optin'), 'error') return end
-    TriggerClientEvent('qbx_admin:client:blips', source)
+    TriggerClientEvent('cAdmin:client:blips', source)
 end)
 
 lib.addCommand('admincar', {
@@ -58,10 +56,10 @@ lib.addCommand('admincar', {
     end
 
     local playerData = exports.qbx_core:GetPlayer(source).PlayerData
-    local vehName, props = lib.callback.await('qbx_admin:client:GetVehicleInfo', source)
+    local vehName, props = lib.callback.await('cAdmin:client:GetVehicleInfo', source)
     local existingVehicleId = Entity(vehicle).state.vehicleid
     if existingVehicleId then
-        local response = lib.callback.await('qbx_admin:client:SaveCarDialog', source)
+        local response = lib.callback.await('cAdmin:client:SaveCarDialog', source)
 
         if not response then
             return exports.qbx_core:Notify(source, 'Canceled.', 'inform')
@@ -93,7 +91,7 @@ lib.addCommand('setmodel', {
 
     if not exports.qbx_core:GetPlayer(Target) then return end
 
-    TriggerClientEvent('qbx_admin:client:setModel', Target, args.model)
+    TriggerClientEvent('cAdmin:client:setModel', Target, args.model)
 end)
 
 lib.addCommand('vec2', {
@@ -101,7 +99,7 @@ lib.addCommand('vec2', {
     restricted = config.dev,
 }, function(source)
     if not exports.qbx_core:IsOptin(source) then exports.qbx_core:Notify(source, locale('error.not_optin'), 'error') return end
-    TriggerClientEvent('qbx_admin:client:copyToClipboard', source, 'coords2')
+    TriggerClientEvent('cAdmin:client:copyToClipboard', source, 'coords2')
 end)
 
 lib.addCommand('vec3', {
@@ -109,7 +107,7 @@ lib.addCommand('vec3', {
     restricted = config.dev,
 }, function(source)
     if not exports.qbx_core:IsOptin(source) then exports.qbx_core:Notify(source, locale('error.not_optin'), 'error') return end
-    TriggerClientEvent('qbx_admin:client:copyToClipboard', source, 'coords3')
+    TriggerClientEvent('cAdmin:client:copyToClipboard', source, 'coords3')
 end)
 
 lib.addCommand('vec4', {
@@ -117,7 +115,7 @@ lib.addCommand('vec4', {
     restricted = config.dev,
 }, function(source)
     if not exports.qbx_core:IsOptin(source) then exports.qbx_core:Notify(source, locale('error.not_optin'), 'error') return end
-    TriggerClientEvent('qbx_admin:client:copyToClipboard', source, 'coords4')
+    TriggerClientEvent('cAdmin:client:copyToClipboard', source, 'coords4')
 end)
 
 lib.addCommand('heading', {
@@ -125,5 +123,5 @@ lib.addCommand('heading', {
     restricted = config.dev,
 }, function(source)
     if not exports.qbx_core:IsOptin(source) then exports.qbx_core:Notify(source, locale('error.not_optin'), 'error') return end
-    TriggerClientEvent('qbx_admin:client:copyToClipboard', source, 'heading')
+    TriggerClientEvent('cAdmin:client:copyToClipboard', source, 'heading')
 end)

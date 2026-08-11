@@ -1,3 +1,12 @@
+RegisterNetEvent('cAdmin:client:openReportDialog', function()
+    local input = lib.inputDialog('Submit Report', {
+        {type = 'textarea', label = 'Message', description = 'Describe the issue for the administration team.', required = true, min = 1, max = 500, autosize = true}
+    })
+
+    if not input then return end
+    TriggerServerEvent('cAdmin:server:submitReport', input[1])
+end)
+
 local function reportAction(selected, report)
     if selected == 1 then
         lib.alertDialog({
@@ -11,7 +20,7 @@ local function reportAction(selected, report)
             }
         })
 
-        lib.showMenu(('qbx_adminmenu_reports_menu_%s'):format(report.id), MenuIndexes[('qbx_adminmenu_reports_menu_%s'):format(report.id)])
+        lib.showMenu(('cAdmin_reports_menu_%s'):format(report.id), MenuIndexes[('cAdmin_reports_menu_%s'):format(report.id)])
     elseif selected == 2 then
         local input = lib.inputDialog(('Report ID: %s | Sender: %s'):format(report.id, report.senderName), {
             {type = 'input', label = 'Reply'}
@@ -19,24 +28,24 @@ local function reportAction(selected, report)
         if input[1] == '' then
             exports.qbx_core:Notify(locale('error.no_report_reply'), 'error')
         else
-            TriggerServerEvent('qbx_admin:server:sendReply', report, input[1])
+            TriggerServerEvent('cAdmin:server:sendReply', report, input[1])
         end
 
-        lib.showMenu(('qbx_adminmenu_reports_menu_%s'):format(report.id), MenuIndexes[('qbx_adminmenu_reports_menu_%s'):format(report.id)])
+        lib.showMenu(('cAdmin_reports_menu_%s'):format(report.id), MenuIndexes[('cAdmin_reports_menu_%s'):format(report.id)])
     elseif selected == 3 then
-        TriggerServerEvent('qbx_admin:server:deleteReport', report)
+        TriggerServerEvent('cAdmin:server:deleteReport', report)
         GenerateReportMenu()
     else
-        return lib.showMenu(('qbx_adminmenu_reports_menu_%s'):format(report.id), MenuIndexes[('qbx_adminmenu_reports_menu_%s'):format(report.id)])
+        return lib.showMenu(('cAdmin_reports_menu_%s'):format(report.id), MenuIndexes[('cAdmin_reports_menu_%s'):format(report.id)])
     end
 end
 
 function GenerateReportMenu()
-    local reports = lib.callback.await('qbx_admin:server:getReports', false)
+    local reports = lib.callback.await('cAdmin:server:getReports', false)
 
     if not reports or #reports < 1 then
         exports.qbx_core:Notify(locale('error.no_reports'), 'error')
-        return lib.showMenu('qbx_adminmenu_main_menu', MenuIndexes.qbx_adminmenu_main_menu)
+        return lib.showMenu('cAdmin_main_menu', MenuIndexes.cAdmin_main_menu)
     else
         exports.qbx_core:Notify(locale('success.report_load'):format(#reports), 'success')
     end
@@ -47,28 +56,28 @@ function GenerateReportMenu()
     end
 
     lib.registerMenu({
-        id = 'qbx_adminmenu_reports_menu',
+        id = 'cAdmin_reports_menu',
         title = locale('title.reports_menu'),
         position = 'center-right',
         onClose = function(keyPressed)
-            CloseMenu(false, keyPressed, 'qbx_adminmenu_main_menu')
+            CloseMenu(false, keyPressed, 'cAdmin_main_menu')
         end,
         onSelected = function(selected)
-            MenuIndexes.qbx_adminmenu_reports_menu = selected
+            MenuIndexes.cAdmin_reports_menu = selected
         end,
         options = reportsList
     }, function(_, _, args)
         local report = args[1]
 
         lib.registerMenu({
-            id = ('qbx_adminmenu_reports_menu_%s'):format(report.id),
+            id = ('cAdmin_reports_menu_%s'):format(report.id),
             title = ('Report ID: %s | Sender: %s'):format(report.id, report.senderName),
             position = 'center-right',
             onClose = function(keyPressed)
-                CloseMenu(false, keyPressed, 'qbx_adminmenu_reports_menu')
+                CloseMenu(false, keyPressed, 'cAdmin_reports_menu')
             end,
             onSelected = function(selected)
-                MenuIndexes[('qbx_adminmenu_reports_menu_%s'):format(report.id)] = selected
+                MenuIndexes[('cAdmin_reports_menu_%s'):format(report.id)] = selected
             end,
             options = {
                 {label = 'View Message', icon = 'fas fa-message'},
@@ -82,8 +91,8 @@ function GenerateReportMenu()
         }, function(selected)
             reportAction(selected, report)
         end)
-        lib.showMenu(('qbx_adminmenu_reports_menu_%s'):format(report.id), MenuIndexes[('qbx_adminmenu_reports_menu_%s'):format(report.id)])
+        lib.showMenu(('cAdmin_reports_menu_%s'):format(report.id), MenuIndexes[('cAdmin_reports_menu_%s'):format(report.id)])
     end)
 
-    lib.showMenu('qbx_adminmenu_reports_menu', MenuIndexes.qbx_adminmenu_reports_menu)
+    lib.showMenu('cAdmin_reports_menu', MenuIndexes.cAdmin_reports_menu)
 end
