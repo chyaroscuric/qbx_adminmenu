@@ -321,7 +321,9 @@ CreateThread(function()
             end
         end
 
-        Wait(isDrawing and config.adminTagDisplay.drawInterval or config.adminTagDisplay.idleInterval)
+        -- Native text only exists for the frame in which it is drawn. Yielding until
+        -- the next frame keeps the tag continuous instead of making it flash.
+        Wait(isDrawing and 0 or config.adminTagDisplay.idleInterval)
     end
 end)
 

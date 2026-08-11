@@ -21,7 +21,6 @@ return {
         distance = 20.0,
         height = 1.1,
         scale = 0.30,
-        drawInterval = 20,
         idleInterval = 750,
         showPlayerName = true,
     },

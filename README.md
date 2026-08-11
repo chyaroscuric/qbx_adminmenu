@@ -31,4 +31,4 @@ Commands and a menu to provide tools to admins
 - /admincar to Spawn a vehicle and take permanent ownership of it or take permanent ownership of the vehicle the admin is already sitting in
 - /vec2 /vec3 /vec4 /heading copies the value to the clipboard
 
-The admin command, its optional keybind, and the overhead tag label, RGBA colour, draw distance, height, scale, and update intervals can be changed in `config.lua`. Admin tags are displayed automatically while staff are opted in.
+The admin command, its optional keybind, and the overhead tag label, RGBA colour, draw distance, height, scale, and idle interval can be changed in `config.lua`. Admin tags are displayed automatically while staff are opted in.
