@@ -7,7 +7,7 @@ REPORTS = {}
 
 CreateThread(function()
     while true do
-        for _, source in ipairs(GetPlayers()) do
+        for source in pairs(exports.qbx_core:GetQBPlayers()) do
             source = tonumber(source)
             local tagGroup = false
 
