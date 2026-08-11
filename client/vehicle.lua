@@ -1,9 +1,9 @@
 local coreVehicles = exports.qbx_core:GetVehiclesByName()
 
 function GenerateVehiclesSpawnMenu()
-    local canUseMenu = lib.callback.await('qbx_admin:server:canUseMenu', false)
+    local canUseMenu = lib.callback.await('cAdmin:server:canUseMenu', false)
     if not canUseMenu then
-        lib.showMenu('qbx_adminmenu_main_menu', MenuIndexes.qbx_adminmenu_main_menu)
+        lib.showMenu('cAdmin_main_menu', MenuIndexes.cAdmin_main_menu)
         return
     end
 
@@ -28,21 +28,21 @@ function GenerateVehiclesSpawnMenu()
     end)
 
     for i = 1, #categories do
-        lib.setMenuOptions('qbx_adminmenu_spawn_vehicles_menu', {label = qbx.string.capitalize(categories[i]), args = {('qbx_adminmenu_spawn_vehicles_menu_%s'):format(categories[i])}}, i)
+        lib.setMenuOptions('cAdmin_spawn_vehicles_menu', {label = qbx.string.capitalize(categories[i]), args = {('cAdmin_spawn_vehicles_menu_%s'):format(categories[i])}}, i)
 
         lib.registerMenu({
-            id = ('qbx_adminmenu_spawn_vehicles_menu_%s'):format(categories[i]),
+            id = ('cAdmin_spawn_vehicles_menu_%s'):format(categories[i]),
             title = categories[i],
             position = 'center-right',
             onClose = function(keyPressed)
-                CloseMenu(false, keyPressed, 'qbx_adminmenu_spawn_vehicles_menu')
+                CloseMenu(false, keyPressed, 'cAdmin_spawn_vehicles_menu')
             end,
             onSelected = function(selected)
-                MenuIndexes[('qbx_adminmenu_spawn_vehicles_menu_%s'):format(categories[i])] = selected
+                MenuIndexes[('cAdmin_spawn_vehicles_menu_%s'):format(categories[i])] = selected
             end,
             options = {}
         }, function(_, _, args)
-            local vehNetId = lib.callback.await('qbx_admin:server:spawnVehicle', false, args[1])
+            local vehNetId = lib.callback.await('cAdmin:server:spawnVehicle', false, args[1])
             if not vehNetId then return end
             local veh
             repeat
@@ -74,22 +74,22 @@ function GenerateVehiclesSpawnMenu()
 
     for i = 1, #vehs do
         local v = coreVehicles[vehs[i]]
-        lib.setMenuOptions(('qbx_adminmenu_spawn_vehicles_menu_%s'):format(v.category), {label = v.name, args = {v.model}}, indexedCategories[v.category])
+        lib.setMenuOptions(('cAdmin_spawn_vehicles_menu_%s'):format(v.category), {label = v.name, args = {v.model}}, indexedCategories[v.category])
         indexedCategories[v.category] += 1
     end
 
-    lib.showMenu('qbx_adminmenu_spawn_vehicles_menu', MenuIndexes.qbx_adminmenu_spawn_vehicles_menu)
+    lib.showMenu('cAdmin_spawn_vehicles_menu', MenuIndexes.cAdmin_spawn_vehicles_menu)
 end
 
 lib.registerMenu({
-    id = 'qbx_adminmenu_vehicles_menu',
+    id = 'cAdmin_vehicles_menu',
     title = 'Vehicles',
     position = 'center-right',
     onClose = function(keyPressed)
-        CloseMenu(false, keyPressed, 'qbx_adminmenu_main_menu')
+        CloseMenu(false, keyPressed, 'cAdmin_main_menu')
     end,
     onSelected = function(selected)
-        MenuIndexes.qbx_adminmenu_vehicles_menu = selected
+        MenuIndexes.cAdmin_vehicles_menu = selected
     end,
     options = {
         {label = 'Spawn Vehicle'},
@@ -111,14 +111,14 @@ lib.registerMenu({
     elseif selected == 5 then
         if not cache.vehicle then
             exports.qbx_core:Notify('You have to be in a vehicle, to use this', 'error')
-            lib.showMenu('qbx_adminmenu_vehicles_menu', MenuIndexes.qbx_adminmenu_vehicles_menu)
+            lib.showMenu('cAdmin_vehicles_menu', MenuIndexes.cAdmin_vehicles_menu)
             return
         end
         exports.cCustoms:OpenMenu()
     elseif selected == 6 then
         if not cache.vehicle then
             exports.qbx_core:Notify('You have to be in a vehicle, to use this', 'error')
-            lib.showMenu('qbx_adminmenu_vehicles_menu', MenuIndexes.qbx_adminmenu_vehicles_menu)
+            lib.showMenu('cAdmin_vehicles_menu', MenuIndexes.cAdmin_vehicles_menu)
             return
         end
 
@@ -126,14 +126,14 @@ lib.registerMenu({
 
         if not dialog or not dialog[1] or dialog[1] == '' then
             Wait(200)
-            lib.showMenu('qbx_adminmenu_vehicles_menu', MenuIndexes.qbx_adminmenu_vehicles_menu)
+            lib.showMenu('cAdmin_vehicles_menu', MenuIndexes.cAdmin_vehicles_menu)
             return
         end
 
         if #dialog[1] > 8 then
             Wait(200)
             exports.qbx_core:Notify('You can only enter a maximum of 8 characters', 'error')
-            lib.showMenu('qbx_adminmenu_vehicles_menu', MenuIndexes.qbx_adminmenu_vehicles_menu)
+            lib.showMenu('cAdmin_vehicles_menu', MenuIndexes.cAdmin_vehicles_menu)
             return
         end
 
@@ -143,14 +143,14 @@ lib.registerMenu({
 end)
 
 lib.registerMenu({
-    id = 'qbx_adminmenu_spawn_vehicles_menu',
+    id = 'cAdmin_spawn_vehicles_menu',
     title = 'Spawn Vehicle',
     position = 'center-right',
     onClose = function(keyPressed)
-        CloseMenu(false, keyPressed, 'qbx_adminmenu_main_menu')
+        CloseMenu(false, keyPressed, 'cAdmin_main_menu')
     end,
     onSelected = function(selected)
-        MenuIndexes.qbx_adminmenu_spawn_vehicles_menu = selected
+        MenuIndexes.cAdmin_spawn_vehicles_menu = selected
     end,
     options = {}
 }, function(_, _, args)

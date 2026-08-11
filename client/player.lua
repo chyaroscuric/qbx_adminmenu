@@ -1,18 +1,18 @@
 local selectedPlayer
 local playerOptions = {
     function()
-        lib.showMenu('qbx_adminmenu_player_general_menu', MenuIndexes.qbx_adminmenu_player_general_menu)
+        lib.showMenu('cAdmin_player_general_menu', MenuIndexes.cAdmin_player_general_menu)
     end,
     function()
-        lib.showMenu('qbx_adminmenu_player_administration_menu', MenuIndexes.qbx_adminmenu_player_administration_menu)
+        lib.showMenu('cAdmin_player_administration_menu', MenuIndexes.cAdmin_player_administration_menu)
     end,
     function()
-        lib.showMenu('qbx_adminmenu_player_extra_menu', MenuIndexes.qbx_adminmenu_player_extra_menu)
+        lib.showMenu('cAdmin_player_extra_menu', MenuIndexes.cAdmin_player_extra_menu)
     end,
     function()
         local input = lib.inputDialog('Name Change', {'Firstname', 'Lastname'})
         if not input then GeneratePlayersMenu() return end
-        TriggerServerEvent('qbx_admin:server:changePlayerData', 'name', selectedPlayer, input)
+        TriggerServerEvent('cAdmin:server:changePlayerData', 'name', selectedPlayer, input)
         GeneratePlayersMenu()
     end,
     function()
@@ -20,7 +20,7 @@ local playerOptions = {
             {type = 'number', label = 'Percentage', min = 0, max = 100}
         })
         if not input then GeneratePlayersMenu() return end
-        TriggerServerEvent('qbx_admin:server:changePlayerData', 'food', selectedPlayer, input)
+        TriggerServerEvent('cAdmin:server:changePlayerData', 'food', selectedPlayer, input)
         GeneratePlayersMenu()
     end,
     function()
@@ -28,7 +28,7 @@ local playerOptions = {
             {type = 'number', label = 'Percentage', min = 0, max = 100}
         })
         if not input then GeneratePlayersMenu() return end
-        TriggerServerEvent('qbx_admin:server:changePlayerData', 'thirst', selectedPlayer, input)
+        TriggerServerEvent('cAdmin:server:changePlayerData', 'thirst', selectedPlayer, input)
         GeneratePlayersMenu()
     end,
     function()
@@ -36,7 +36,7 @@ local playerOptions = {
             {type = 'number', label = 'Percentage', min = 0, max = 100}
         })
         if not input then GeneratePlayersMenu() return end
-        TriggerServerEvent('qbx_admin:server:changePlayerData', 'stress', selectedPlayer, input)
+        TriggerServerEvent('cAdmin:server:changePlayerData', 'stress', selectedPlayer, input)
         GeneratePlayersMenu()
     end,
     function()
@@ -44,13 +44,13 @@ local playerOptions = {
             {type = 'number', label = 'Percentage', min = 0, max = 100}
         })
         if not input then GeneratePlayersMenu() return end
-        TriggerServerEvent('qbx_admin:server:changePlayerData', 'armor', selectedPlayer, input)
+        TriggerServerEvent('cAdmin:server:changePlayerData', 'armor', selectedPlayer, input)
         GeneratePlayersMenu()
     end,
     function()
         local input = lib.inputDialog('Phone', {'Number'})
         if not input then GeneratePlayersMenu() return end
-        TriggerServerEvent('qbx_admin:server:changePlayerData', 'phone', selectedPlayer, input)
+        TriggerServerEvent('cAdmin:server:changePlayerData', 'phone', selectedPlayer, input)
         GeneratePlayersMenu()
     end,
     function()
@@ -58,7 +58,7 @@ local playerOptions = {
             {type = 'number', label = 'Reputation'}
         })
         if not input then GeneratePlayersMenu() return end
-        TriggerServerEvent('qbx_admin:server:changePlayerData', 'crafting', selectedPlayer, input)
+        TriggerServerEvent('cAdmin:server:changePlayerData', 'crafting', selectedPlayer, input)
         GeneratePlayersMenu()
     end,
     function()
@@ -66,7 +66,7 @@ local playerOptions = {
             {type = 'number', label = 'Reputation'}
         })
         if not input then GeneratePlayersMenu() return end
-        TriggerServerEvent('qbx_admin:server:changePlayerData', 'dealer', selectedPlayer, input)
+        TriggerServerEvent('cAdmin:server:changePlayerData', 'dealer', selectedPlayer, input)
         GeneratePlayersMenu()
     end,
     function()
@@ -74,7 +74,7 @@ local playerOptions = {
             {type = 'number', label = 'Cash'}
         })
         if not input then GeneratePlayersMenu() return end
-        TriggerServerEvent('qbx_admin:server:changePlayerData', 'cash', selectedPlayer, input)
+        TriggerServerEvent('cAdmin:server:changePlayerData', 'cash', selectedPlayer, input)
         GeneratePlayersMenu()
     end,
     function()
@@ -82,7 +82,7 @@ local playerOptions = {
             {type = 'number', label = 'Bank'}
         })
         if not input then GeneratePlayersMenu() return end
-        TriggerServerEvent('qbx_admin:server:changePlayerData', 'bank', selectedPlayer, input)
+        TriggerServerEvent('cAdmin:server:changePlayerData', 'bank', selectedPlayer, input)
         GeneratePlayersMenu()
     end,
     function()
@@ -91,7 +91,7 @@ local playerOptions = {
             {type = 'number', label = 'Grade'}
         })
         if not input then GeneratePlayersMenu() return end
-        TriggerServerEvent('qbx_admin:server:changePlayerData', 'job', selectedPlayer, input)
+        TriggerServerEvent('cAdmin:server:changePlayerData', 'job', selectedPlayer, input)
         GeneratePlayersMenu()
     end,
     function()
@@ -100,7 +100,7 @@ local playerOptions = {
             {type = 'number', label = 'Grade'}
         })
         if not input then GeneratePlayersMenu() return end
-        TriggerServerEvent('qbx_admin:server:changePlayerData', 'gang', selectedPlayer, input)
+        TriggerServerEvent('cAdmin:server:changePlayerData', 'gang', selectedPlayer, input)
         GeneratePlayersMenu()
     end,
     function()
@@ -108,30 +108,30 @@ local playerOptions = {
             {type = 'number', label = 'Frequency'}
         })
         if not input then GeneratePlayersMenu() return end
-        TriggerServerEvent('qbx_admin:server:changePlayerData', 'radio', selectedPlayer, input)
+        TriggerServerEvent('cAdmin:server:changePlayerData', 'radio', selectedPlayer, input)
         GeneratePlayersMenu()
     end,
     function()
         local license = selectedPlayer.license:gsub('license:', '')
         lib.setClipboard(license)
-        lib.showMenu(('qbx_adminmenu_player_menu_%s'):format(selectedPlayer.id), MenuIndexes[('qbx_adminmenu_player_menu_%s'):format(selectedPlayer.id)])
+        lib.showMenu(('cAdmin_player_menu_%s'):format(selectedPlayer.id), MenuIndexes[('cAdmin_player_menu_%s'):format(selectedPlayer.id)])
     end,
     function()
         local discord = selectedPlayer.discord:gsub('discord:', '')
         lib.setClipboard(discord)
-        lib.showMenu(('qbx_adminmenu_player_menu_%s'):format(selectedPlayer.id), MenuIndexes[('qbx_adminmenu_player_menu_%s'):format(selectedPlayer.id)])
+        lib.showMenu(('cAdmin_player_menu_%s'):format(selectedPlayer.id), MenuIndexes[('cAdmin_player_menu_%s'):format(selectedPlayer.id)])
     end,
     function()
         local steam = selectedPlayer.steam:gsub('steam:', '')
         lib.setClipboard(steam)
-        lib.showMenu(('qbx_adminmenu_player_menu_%s'):format(selectedPlayer.id), MenuIndexes[('qbx_adminmenu_player_menu_%s'):format(selectedPlayer.id)])
+        lib.showMenu(('cAdmin_player_menu_%s'):format(selectedPlayer.id), MenuIndexes[('cAdmin_player_menu_%s'):format(selectedPlayer.id)])
     end,
 }
 
 function GeneratePlayersMenu()
-    local players = lib.callback.await('qbx_admin:server:getPlayers', false)
+    local players = lib.callback.await('cAdmin:server:getPlayers', false)
     if not players then
-        lib.showMenu('qbx_adminmenu_main_menu', MenuIndexes.qbx_adminmenu_main_menu)
+        lib.showMenu('cAdmin_main_menu', MenuIndexes.cAdmin_main_menu)
         return
     end
     local optionsList = {}
@@ -139,31 +139,31 @@ function GeneratePlayersMenu()
         optionsList[#optionsList + 1] = {label = string.format('ID: %s | Name: %s', players[i].id, players[i].name), description = string.format('CID: %s', players[i].cid), args = {players[i]}}
     end
     lib.registerMenu({
-        id = 'qbx_adminmenu_players_menu',
+        id = 'cAdmin_players_menu',
         title = locale('title.players_menu'),
         position = 'center-right',
         onClose = function(keyPressed)
-            CloseMenu(false, keyPressed, 'qbx_adminmenu_main_menu')
+            CloseMenu(false, keyPressed, 'cAdmin_main_menu')
         end,
         onSelected = function(selected)
-            MenuIndexes.qbx_adminmenu_players_menu = selected
+            MenuIndexes.cAdmin_players_menu = selected
         end,
         options = optionsList
     }, function(_, _, args)
-        local player = lib.callback.await('qbx_admin:server:getPlayer', false, args[1].id)
+        local player = lib.callback.await('cAdmin:server:getPlayer', false, args[1].id)
         if not player then
-            lib.showMenu('qbx_adminmenu_main_menu', MenuIndexes.qbx_adminmenu_main_menu)
+            lib.showMenu('cAdmin_main_menu', MenuIndexes.cAdmin_main_menu)
             return
         end
         lib.registerMenu({
-            id = ('qbx_adminmenu_player_menu_%s'):format(args[1].id),
+            id = ('cAdmin_player_menu_%s'):format(args[1].id),
             title = player.name,
             position = 'center-right',
             onClose = function(keyPressed)
-                CloseMenu(false, keyPressed, 'qbx_adminmenu_players_menu')
+                CloseMenu(false, keyPressed, 'cAdmin_players_menu')
             end,
             onSelected = function(selected)
-                MenuIndexes[('qbx_adminmenu_player_menu_%s'):format(args[1].id)] = selected
+                MenuIndexes[('cAdmin_player_menu_%s'):format(args[1].id)] = selected
             end,
             options = {
                 {label = locale('player_options.label1'), description = locale('player_options.desc1'), icon = 'fas fa-wrench'},
@@ -190,20 +190,20 @@ function GeneratePlayersMenu()
             playerOptions[selected]()
         end)
         selectedPlayer = player
-        lib.showMenu(('qbx_adminmenu_player_menu_%s'):format(args[1].id), MenuIndexes[('qbx_adminmenu_player_menu_%s'):format(args[1].id)])
+        lib.showMenu(('cAdmin_player_menu_%s'):format(args[1].id), MenuIndexes[('cAdmin_player_menu_%s'):format(args[1].id)])
     end)
-    lib.showMenu('qbx_adminmenu_players_menu', MenuIndexes.qbx_adminmenu_players_menu)
+    lib.showMenu('cAdmin_players_menu', MenuIndexes.cAdmin_players_menu)
 end
 
 lib.registerMenu({
-    id = 'qbx_adminmenu_player_general_menu',
+    id = 'cAdmin_player_general_menu',
     title = locale('player_options.label1'),
     position = 'center-right',
     onClose = function(keyPressed)
-        CloseMenu(false, keyPressed, ('qbx_adminmenu_player_menu_%s'):format(selectedPlayer?.id))
+        CloseMenu(false, keyPressed, ('cAdmin_player_menu_%s'):format(selectedPlayer?.id))
     end,
     onSelected = function(selected)
-        MenuIndexes.qbx_adminmenu_player_general_menu = selected
+        MenuIndexes.cAdmin_player_general_menu = selected
     end,
     options = {
         {label = locale('player_options.general.labelkill'), description = locale('player_options.general.desckill'), icon = 'fas fa-skull', close = false},
@@ -220,22 +220,22 @@ lib.registerMenu({
             {type = 'number', label = locale('player_options.general.labelrouting'), placeholder = '25'}
         })
         if not input then return end if not input[1] then return end
-        TriggerServerEvent('qbx_admin:server:playerOptionsGeneral', selected, selectedPlayer, input[1])
-        lib.showMenu(('qbx_adminmenu_player_menu_%s'):format(selectedPlayer?.id), MenuIndexes[('qbx_adminmenu_player_menu_%s'):format(selectedPlayer?.id)])
+        TriggerServerEvent('cAdmin:server:playerOptionsGeneral', selected, selectedPlayer, input[1])
+        lib.showMenu(('cAdmin_player_menu_%s'):format(selectedPlayer?.id), MenuIndexes[('cAdmin_player_menu_%s'):format(selectedPlayer?.id)])
     else
-        TriggerServerEvent('qbx_admin:server:playerOptionsGeneral', selected, selectedPlayer)
+        TriggerServerEvent('cAdmin:server:playerOptionsGeneral', selected, selectedPlayer)
     end
 end)
 
 lib.registerMenu({
-    id = 'qbx_adminmenu_player_administration_menu',
+    id = 'cAdmin_player_administration_menu',
     title = locale('player_options.label2'),
     position = 'center-right',
     onClose = function(keyPressed)
-        CloseMenu(false, keyPressed, ('qbx_adminmenu_player_menu_%s'):format(selectedPlayer?.id))
+        CloseMenu(false, keyPressed, ('cAdmin_player_menu_%s'):format(selectedPlayer?.id))
     end,
     onSelected = function(selected)
-        MenuIndexes.qbx_adminmenu_player_administration_menu = selected
+        MenuIndexes.cAdmin_player_administration_menu = selected
     end,
     options = {
         {label = locale('player_options.administration.labelkick'), description = locale('player_options.administration.desckick'), icon = 'fas fa-plane-departure'},
@@ -246,9 +246,9 @@ lib.registerMenu({
 }, function(selected, scrollIndex, args)
     if selected == 1 then
         local input = lib.inputDialog(selectedPlayer.name, {locale('player_options.administration.inputkick')})
-        if not input then lib.showMenu('qbx_adminmenu_player_administration_menu', MenuIndexes.qbx_adminmenu_player_administration_menu) return end if not input[1] then return end
-        TriggerServerEvent('qbx_admin:server:playerAdministration', selected, selectedPlayer, input[1])
-        lib.showMenu('qbx_adminmenu_player_administration_menu', MenuIndexes.qbx_adminmenu_player_administration_menu)
+        if not input then lib.showMenu('cAdmin_player_administration_menu', MenuIndexes.cAdmin_player_administration_menu) return end if not input[1] then return end
+        TriggerServerEvent('cAdmin:server:playerAdministration', selected, selectedPlayer, input[1])
+        lib.showMenu('cAdmin_player_administration_menu', MenuIndexes.cAdmin_player_administration_menu)
     elseif selected == 2 then
         local input = lib.inputDialog(selectedPlayer.name, {
             { type = 'input', label = locale('player_options.administration.inputkick'), placeholder = 'VDM'},
@@ -256,24 +256,24 @@ lib.registerMenu({
             { type = 'number', label = locale('player_options.administration.input2ban')},
             { type = 'number', label = locale('player_options.administration.input3ban')}
         })
-        if not input then lib.showMenu('qbx_adminmenu_player_administration_menu', MenuIndexes.qbx_adminmenu_player_general_menu) return end if not input[1] or not input[2] and not input[3] and not input[4] then return end
-        TriggerServerEvent('qbx_admin:server:playerAdministration', selected, selectedPlayer, input)
-        lib.showMenu('qbx_adminmenu_player_administration_menu', MenuIndexes.qbx_adminmenu_player_administration_menu)
+        if not input then lib.showMenu('cAdmin_player_administration_menu', MenuIndexes.cAdmin_player_general_menu) return end if not input[1] or not input[2] and not input[3] and not input[4] then return end
+        TriggerServerEvent('cAdmin:server:playerAdministration', selected, selectedPlayer, input)
+        lib.showMenu('cAdmin_player_administration_menu', MenuIndexes.cAdmin_player_administration_menu)
     else
-        TriggerServerEvent('qbx_admin:server:playerAdministration', selected, selectedPlayer, args[scrollIndex])
-        lib.showMenu('qbx_adminmenu_player_administration_menu', MenuIndexes.qbx_adminmenu_player_administration_menu)
+        TriggerServerEvent('cAdmin:server:playerAdministration', selected, selectedPlayer, args[scrollIndex])
+        lib.showMenu('cAdmin_player_administration_menu', MenuIndexes.cAdmin_player_administration_menu)
     end
 end)
 
 lib.registerMenu({
-    id = 'qbx_adminmenu_player_extra_menu',
+    id = 'cAdmin_player_extra_menu',
     title = locale('player_options.label2'),
     position = 'center-right',
     onClose = function(keyPressed)
-        CloseMenu(false, keyPressed, ('qbx_adminmenu_player_menu_%s'):format(selectedPlayer?.id))
+        CloseMenu(false, keyPressed, ('cAdmin_player_menu_%s'):format(selectedPlayer?.id))
     end,
     onSelected = function(selected)
-        MenuIndexes.qbx_adminmenu_player_extra_menu = selected
+        MenuIndexes.cAdmin_player_extra_menu = selected
     end,
     options = {
         {label = 'Open Inventory'},
@@ -285,16 +285,16 @@ lib.registerMenu({
     if selected == 1 then
         exports.ox_inventory:openInventory('player', selectedPlayer.id)
     elseif selected == 2 then
-        local succeeded = lib.callback.await('qbx_admin:server:clothingMenu', false, selectedPlayer.id)
+        local succeeded = lib.callback.await('cAdmin:server:clothingMenu', false, selectedPlayer.id)
         if succeeded then return end
-        lib.showMenu('qbx_adminmenu_player_extra_menu', MenuIndexes.qbx_adminmenu_player_extra_menu)
+        lib.showMenu('cAdmin_player_extra_menu', MenuIndexes.cAdmin_player_extra_menu)
     elseif selected == 3 then
         local dialog = lib.inputDialog('Give Item', {
             {type = 'input', label = 'Item', placeholder = 'phone'},
             {type = 'number', label = 'Amount', default = 1}
         })
         if not dialog or not dialog[1] or dialog[1] == '' or not dialog[2] or dialog[2] < 1 then
-            lib.showMenu('qbx_adminmenu_player_extra_menu', MenuIndexes.qbx_adminmenu_player_extra_menu)
+            lib.showMenu('cAdmin_player_extra_menu', MenuIndexes.cAdmin_player_extra_menu)
             return
         end
         ExecuteCommand('giveitem ' .. selectedPlayer.id .. ' ' .. dialog[1] .. ' ' .. dialog[2])
@@ -303,6 +303,6 @@ lib.registerMenu({
     end
 end)
 
-RegisterNetEvent('qbx_admin:client:killPlayer', function()
+RegisterNetEvent('cAdmin:client:killPlayer', function()
     SetEntityHealth(cache.ped, 0)
 end)

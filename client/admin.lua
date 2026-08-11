@@ -1,4 +1,5 @@
 local VEHICLES_HASH = exports.qbx_core:GetVehiclesByHash()
+local config = require 'config'
 local optionInvisible = false
 local godmode = false
 local infiniteAmmo = false
@@ -242,19 +243,19 @@ local options = {
             SetPedInfiniteAmmo(cache.ped, false, weapon)
         end
     end,
-    function(weaponType) TriggerServerEvent('qbx_admin:server:giveAllWeapons', weaponType) end,
+    function(weaponType) TriggerServerEvent('cAdmin:server:giveAllWeapons', weaponType) end,
     function() TriggerEvent('police:client:GetCuffed', cache.serverId, true) end,
 }
 
 lib.registerMenu({
-    id = 'qbx_adminmenu_admin_menu',
+    id = 'cAdmin_admin_menu',
     title = locale('title.admin_menu'),
     position = 'center-right',
     onClose = function(keyPressed)
-        CloseMenu(false, keyPressed, 'qbx_adminmenu_main_menu')
+        CloseMenu(false, keyPressed, 'cAdmin_main_menu')
     end,
     onSelected = function(selected)
-        MenuIndexes.qbx_adminmenu_admin_menu = selected
+        MenuIndexes.cAdmin_admin_menu = selected
     end,
     options = {
         {label = locale('admin_options.label1'), description = locale('admin_options.desc1'), icon = 'fab fa-fly', close = false},
@@ -279,7 +280,52 @@ lib.registerMenu({
     end
 end)
 
-RegisterNetEvent('qbx_admin:client:ToggleNoClip', function()
+local function drawAdminTag(text, coords, colour, offset)
+    SetDrawOrigin(coords.x, coords.y, coords.z, 0)
+    SetTextFont(0)
+    SetTextScale(0.0, config.adminTagDisplay.scale)
+    SetTextCentre(true)
+    SetTextColour(colour.r, colour.g, colour.b, colour.a)
+    SetTextOutline()
+    BeginTextCommandDisplayText('STRING')
+    AddTextComponentSubstringPlayerName(text)
+    EndTextCommandDisplayText(0.0, offset)
+    ClearDrawOrigin()
+end
+
+CreateThread(function()
+    while true do
+        local localCoords = GetEntityCoords(cache.ped)
+        local isDrawing = false
+
+        if not IsPauseMenuActive() then
+            for _, playerId in ipairs(GetActivePlayers()) do
+                local serverId = GetPlayerServerId(playerId)
+                local tagGroup = Player(serverId).state.cAdminTag
+                local tagConfig = tagGroup and config.adminTagGroups[tagGroup]
+
+                if tagConfig then
+                    local ped = GetPlayerPed(playerId)
+                    local coords = GetEntityCoords(ped)
+
+                    if IsEntityVisible(ped) and #(coords - localCoords) < config.adminTagDisplay.distance then
+                        isDrawing = true
+                        coords = coords + vector3(0.0, 0.0, config.adminTagDisplay.height)
+                        drawAdminTag(('[ %s ]'):format(tagConfig.label), coords, tagConfig.colour, 0.0)
+
+                        if config.adminTagDisplay.showPlayerName then
+                            drawAdminTag(GetPlayerName(playerId), coords, {r = 255, g = 255, b = 255, a = 255}, 0.025)
+                        end
+                    end
+                end
+            end
+        end
+
+        Wait(isDrawing and config.adminTagDisplay.drawInterval or config.adminTagDisplay.idleInterval)
+    end
+end)
+
+RegisterNetEvent('cAdmin:client:ToggleNoClip', function()
     if GetInvokingResource() then return end
     toggleNoClipMode()
 end)
@@ -289,7 +335,7 @@ local showNames = false
 local netCheck1 = false
 local netCheck2 = false
 
-RegisterNetEvent('qbx_admin:client:blips', function()
+RegisterNetEvent('cAdmin:client:blips', function()
     if not showBlips then
         showBlips = true
         netCheck1 = true
@@ -300,7 +346,7 @@ RegisterNetEvent('qbx_admin:client:blips', function()
     end
 end)
 
-RegisterNetEvent('qbx_admin:client:names', function()
+RegisterNetEvent('cAdmin:client:names', function()
     if not showNames then
         showNames = true
         netCheck2 = true
@@ -311,8 +357,8 @@ RegisterNetEvent('qbx_admin:client:names', function()
     end
 end)
 
-RegisterNetEvent('qbx_admin:client:Show', function()
-    local players = lib.callback.await('qbx_admin:server:getPlayers', false)
+RegisterNetEvent('cAdmin:client:Show', function()
+    local players = lib.callback.await('cAdmin:server:getPlayers', false)
     for _, player in pairs(players) do
         local playerId = GetPlayerFromServerId(player.id)
         local ped = GetPlayerPed(playerId)
@@ -500,7 +546,7 @@ RegisterNetEvent('qbx_admin:client:Show', function()
     end
 end)
 
-lib.callback.register('qbx_admin:client:SaveCarDialog', function()
+lib.callback.register('cAdmin:client:SaveCarDialog', function()
     local response = lib.alertDialog({
         header = 'Save Car',
         content = 'This vehicle is already owned, do you want to override the current owner?',
@@ -514,7 +560,7 @@ lib.callback.register('qbx_admin:client:SaveCarDialog', function()
     return response == 'confirm'
 end)
 
-lib.callback.register('qbx_admin:client:GetVehicleInfo', function()
+lib.callback.register('cAdmin:client:GetVehicleInfo', function()
     return VEHICLES_HASH[GetEntityModel(cache.vehicle)].model, lib.getVehicleProperties(cache.vehicle)
 end)
 
@@ -522,7 +568,7 @@ CreateThread(function()
     while true do
         Wait(1000)
         if netCheck1 or netCheck2 then
-            TriggerEvent('qbx_admin:client:Show')
+            TriggerEvent('cAdmin:client:Show')
         end
     end
 end)
