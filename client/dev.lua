@@ -2,10 +2,10 @@ local showCoords = false
 local vehicleDev = false
 local vehicleTypes = {'Compacts', 'Sedans', 'SUVs', 'Coupes', 'Muscle', 'Sports Classics', 'Sports', 'Super', 'Motorcycles', 'Off-road', 'Industrial', 'Utility', 'Vans', 'Cycles', 'Boats', 'Helicopters', 'Planes', 'Service', 'Emergency', 'Military', 'Commercial', 'Trains', 'Open Wheel'}
 local options = {
-    function() CopyToClipboard('coords2') lib.showMenu('qbx_adminmenu_dev_menu', MenuIndexes.qbx_adminmenu_dev_menu) end,
-    function() CopyToClipboard('coords3') lib.showMenu('qbx_adminmenu_dev_menu', MenuIndexes.qbx_adminmenu_dev_menu) end,
-    function() CopyToClipboard('coords4') lib.showMenu('qbx_adminmenu_dev_menu', MenuIndexes.qbx_adminmenu_dev_menu) end,
-    function() CopyToClipboard('heading') lib.showMenu('qbx_adminmenu_dev_menu', MenuIndexes.qbx_adminmenu_dev_menu) end,
+    function() CopyToClipboard('coords2') lib.showMenu('cAdmin_dev_menu', MenuIndexes.cAdmin_dev_menu) end,
+    function() CopyToClipboard('coords3') lib.showMenu('cAdmin_dev_menu', MenuIndexes.cAdmin_dev_menu) end,
+    function() CopyToClipboard('coords4') lib.showMenu('cAdmin_dev_menu', MenuIndexes.cAdmin_dev_menu) end,
+    function() CopyToClipboard('heading') lib.showMenu('cAdmin_dev_menu', MenuIndexes.cAdmin_dev_menu) end,
     function()
         showCoords = not showCoords
         while showCoords do
@@ -62,14 +62,14 @@ local options = {
 }
 
 lib.registerMenu({
-    id = 'qbx_adminmenu_dev_menu',
+    id = 'cAdmin_dev_menu',
     title = locale('title.dev_menu'),
     position = 'center-right',
     onClose = function(keyPressed)
-        CloseMenu(false, keyPressed, 'qbx_adminmenu_main_menu')
+        CloseMenu(false, keyPressed, 'cAdmin_main_menu')
     end,
     onSelected = function(selected)
-        MenuIndexes.qbx_adminmenu_dev_menu = selected
+        MenuIndexes.cAdmin_dev_menu = selected
     end,
     options = {
         {label = locale('dev_options.label1'), description = locale('dev_options.desc1'), icon = 'fas fa-compass'},

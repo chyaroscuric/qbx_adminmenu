@@ -25,6 +25,6 @@ function CopyToClipboard(dataType)
     exports.qbx_core:Notify(message, 'success')
 end
 
-RegisterNetEvent('qbx_admin:client:copyToClipboard', function(dataType)
+RegisterNetEvent('cAdmin:client:copyToClipboard', function(dataType)
     CopyToClipboard(dataType)
 end)

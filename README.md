@@ -1,6 +1,6 @@
 ![title](https://cdn.discordapp.com/attachments/1027004645912088686/1300263126243217438/adminmenu.jpg?ex=6720dca7&is=671f8b27&hm=6c218887153c78c50bfa0bd636c6b2b13686a2ea443a36645b81dbd7e8f37984&)
 
-# qbx_adminmenu
+# cAdmin
 
 Commands and a menu to provide tools to admins
 
@@ -20,7 +20,7 @@ Commands and a menu to provide tools to admins
 - kill/revive/freeze/kick/ban/teleport/noclip
 
 ## Player Commands
-- /report <message> send a message to admins
+- /report opens a dialog to send a message to admins
 
 ## Admin Commands
 - /admin opens the admin menu
@@ -31,3 +31,4 @@ Commands and a menu to provide tools to admins
 - /admincar to Spawn a vehicle and take permanent ownership of it or take permanent ownership of the vehicle the admin is already sitting in
 - /vec2 /vec3 /vec4 /heading copies the value to the clipboard
 
+The admin command, its optional keybind, and the overhead tag label, RGBA colour, draw distance, height, scale, and update intervals can be changed in `config.lua`. Admin tags are displayed automatically while staff are opted in.
